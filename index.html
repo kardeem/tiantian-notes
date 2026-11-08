@@ -38,7 +38,7 @@ body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:var(--bg)
 h2.chtitle{font-size:24px;margin-bottom:4px}
 .chsrc{color:var(--fg2);font-size:12.5px;margin-bottom:8px}
 .chsubject{display:inline-block;font-size:12px;padding:3px 12px;border-radius:20px;color:#0b1020;font-weight:700;margin-bottom:18px}
-.content{font-size:15px;line-height:1.95}
+.content{font-size:var(--cfs,15px);line-height:var(--clh,1.95)}
 .content .h3{font-size:18px;font-weight:700;margin:26px 0 10px;padding-left:10px;border-left:4px solid var(--acc)}
 .content .h4{font-size:16px;font-weight:700;margin:20px 0 8px;color:var(--acc)}
 .content .h5{font-weight:700;margin:14px 0 6px}
@@ -47,7 +47,7 @@ h2.chtitle{font-size:24px;margin-bottom:4px}
 .content .sec{margin:30px 0 14px;display:flex;align-items:center;gap:10px;font-size:16.5px;font-weight:700;color:var(--mmv)}
 .content .sec::after{content:"";flex:1;height:1px;background:var(--line)}
 .kj{color:var(--kj);font-weight:600}
-.content table{border-collapse:collapse;margin:12px 0;width:100%;font-size:13.5px;background:var(--bg2)}
+.content table{border-collapse:collapse;margin:12px 0;width:100%;font-size:calc(var(--cfs,15px)*0.9);background:var(--bg2)}
 .content td,.content th{border:1px solid var(--line);padding:6px 9px;vertical-align:top;line-height:1.6}
 .content tr:first-child td{font-weight:700;background:var(--bg3)}
 figure.content-img{margin:16px 0;background:var(--bg2);border:1px solid var(--line);border-radius:12px;overflow:hidden;max-width:640px}
@@ -87,7 +87,28 @@ figure.content-img figcaption b{color:var(--fg);font-size:13px}
 #lightbox{position:fixed;inset:0;background:rgba(0,0,0,.93);display:none;z-index:100;cursor:zoom-out;flex-direction:column;align-items:center;justify-content:center}
 #lightbox img{max-width:94vw;max-height:88vh}
 #lightbox .cap{color:#cbd5e1;font-size:13.5px;margin-top:10px}
-.syshead{font-size:11.5px;color:var(--fg2);padding:8px 10px 3px;font-weight:700;letter-spacing:1px}
+#sideBtn,#setBtn{cursor:pointer;background:var(--bg3);border:1px solid var(--line);color:var(--fg);border-radius:8px;padding:6px 10px;font-size:13px}
+body.noside #sidebar{display:none}
+.syshead{cursor:pointer;display:flex;align-items:center;gap:5px;user-select:none;font-size:11.5px;color:var(--fg2);padding:8px 10px 3px;font-weight:700;letter-spacing:1px;border-radius:6px}
+.syshead:hover{color:var(--fg)}
+.syshead .scaret{font-size:9px;color:var(--fg2);transition:transform .15s;display:inline-block}
+.syswrap{display:block}
+.syswrap.closed{display:none}
+#settings{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center;z-index:250}
+#setbox{background:var(--bg2);border:1px solid var(--line);border-radius:16px;padding:26px 30px;width:min(440px,92vw);box-shadow:0 20px 60px rgba(0,0,0,.5);max-height:84vh;overflow-y:auto}
+#setbox h2{font-size:19px;margin-bottom:16px}
+.setrow{margin-bottom:18px}
+.setrow label{font-size:14px;font-weight:600;display:flex;justify-content:space-between;margin-bottom:8px}
+.setrow input[type=range]{width:100%;accent-color:var(--acc)}
+.setrow input[type=text],.setrow input[type=password]{width:100%;padding:9px 11px;border-radius:8px;border:1px solid var(--line);background:var(--bg3);color:var(--fg);font-size:13px;outline:none}
+.setrow .hint{font-size:12px;color:var(--fg2);margin-top:6px;line-height:1.7}
+#setbox .setclose{margin-top:4px;width:100%;padding:9px;border:0;border-radius:8px;background:var(--acc);color:#fff;font-size:14px;cursor:pointer;font-weight:700}
+#aipanel{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:260}
+#aibox{background:var(--bg2);border:1px solid var(--line);border-radius:16px;padding:22px 26px;width:min(680px,94vw);max-height:86vh;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+#aibox h2{font-size:18px;margin-bottom:4px}
+#aistatus{font-size:12.5px;color:var(--fg2);margin-bottom:12px;min-height:16px}
+#aiout{flex:1;overflow-y:auto;background:var(--bg3);border:1px solid var(--line);border-radius:10px;padding:14px;font-size:14px;line-height:1.9;white-space:pre-wrap;min-height:220px}
+#aibtns{display:flex;gap:10px;margin-top:12px}
 .blk{position:relative}
 .blkbtn{position:absolute;top:-10px;right:2px;display:none;font-size:11px;background:var(--bg3);border:1px solid var(--line);border-radius:6px;padding:1px 6px;cursor:pointer;color:var(--fg2);z-index:5}
 .blk:hover .blkbtn{display:inline-block}
@@ -106,8 +127,27 @@ figure.content-img figcaption b{color:var(--fg);font-size:13px}
 #loginbox p{color:var(--fg2);font-size:13px;margin-bottom:16px}
 #loginbox input{width:100%;padding:10px 12px;margin-bottom:12px;border-radius:8px;border:1px solid var(--line);background:var(--bg3);color:var(--fg);font-size:14px;outline:none}
 #loginbox button{width:100%;padding:10px;border:0;border-radius:8px;background:var(--acc);color:#fff;font-size:15px;cursor:pointer;font-weight:700}
+#ltabs{display:flex;gap:8px;margin-bottom:14px}
+.ltab{flex:1;padding:8px;border-radius:8px;border:1px solid var(--line);background:var(--bg3);color:var(--fg2);cursor:pointer;font-size:14px;font-weight:700}
+.ltab.on{background:var(--acc);color:#fff;border-color:var(--acc)}
+#lerr,#rerr{color:#ff7b72;font-size:13px;margin-top:10px;min-height:16px;line-height:1.5}
 #lerr{color:#f87171;font-size:12.5px;margin-top:10px;min-height:16px}
 #userBtn{cursor:pointer;background:var(--bg3);border:1px solid var(--line);color:var(--fg);border-radius:8px;padding:6px 10px;font-size:13px}
+.aichatitem{border:1px solid var(--mmv);color:var(--mmv);font-weight:600;margin-bottom:8px;background:rgba(167,139,250,.08)}
+#chatlog{display:flex;flex-direction:column;gap:14px;margin:18px 0 4px}
+.chatmsg{max-width:88%;padding:12px 16px;border-radius:14px;line-height:1.9;font-size:14.5px;white-space:pre-wrap;word-break:break-word}
+.chatmsg.user{align-self:flex-end;background:var(--acc);color:#fff;border-bottom-right-radius:4px}
+.chatmsg.ai{align-self:flex-start;background:var(--bg2);border:1px solid var(--line);border-bottom-left-radius:4px}
+.chatmsg.ai b{color:var(--mmv)}
+.chatrefs{margin-top:10px;display:flex;flex-wrap:wrap;gap:6px}
+.chatref{font-size:12px;background:var(--bg3);border:1px solid var(--line);border-radius:6px;padding:2px 8px;cursor:pointer;color:var(--acc)}
+.chatref:hover{border-color:var(--acc)}
+#chatbar{display:flex;gap:10px;align-items:flex-end;background:var(--bg);padding:12px 0 0;border-top:1px solid var(--line);position:sticky;bottom:0;margin-top:8px}
+#chatin{flex:1;min-height:54px;max-height:180px;background:var(--bg2);color:var(--fg);border:1px solid var(--line);border-radius:12px;padding:10px 12px;font-size:14px;font-family:inherit;resize:vertical;outline:none}
+#chatin:focus{border-color:var(--mmv)}
+#chatsend{cursor:pointer;background:var(--mmv);color:#fff;border:0;border-radius:12px;padding:12px 20px;font-size:14px;font-weight:700}
+#chatsend:disabled{opacity:.5;cursor:not-allowed}
+.chatempty{color:var(--fg2);font-size:13.5px;line-height:2;padding:12px 0}
 ::-webkit-scrollbar{width:9px;height:9px}
 ::-webkit-scrollbar-thumb{background:var(--bg3);border-radius:6px}
 </style>
@@ -120,7 +160,9 @@ figure.content-img figcaption b{color:var(--fg);font-size:13px}
     <input id="search" type="text" placeholder="全文搜索：正文 / 表格 / 图片 / 思维导图…" autocomplete="off">
   </div>
   <span id="resultcount"></span>
+  <button id="sideBtn" title="收起/展开左侧导航栏">☰ 导航</button>
   <button id="themeBtn">🌗 主题</button>
+  <button id="setBtn" title="字体大小 / AI 设置">⚙ 设置</button>
   <button id="userBtn"></button>
 </div>
 <div id="results" style="display:none;position:absolute;top:56px;left:50%;transform:translateX(-50%);width:min(720px,92vw);max-height:60vh;overflow-y:auto;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:14px;z-index:50;box-shadow:0 10px 40px rgba(0,0,0,.45)"></div>
@@ -130,13 +172,44 @@ figure.content-img figcaption b{color:var(--fg);font-size:13px}
 </div>
 <div id="login"><div id="loginbox">
   <h2>🔐 天天师兄笔记</h2>
-  <p>请登录以使用编辑与笔记功能（账号与密码均为 1）</p>
-  <input id="lu" type="text" placeholder="账号" autocomplete="off">
-  <input id="lp" type="password" placeholder="密码" autocomplete="off">
-  <button id="lgo">登 录</button>
-  <div id="lerr"></div>
+  <p>注册并登录后可使用编辑与笔记功能。账号数据仅保存在本设备浏览器中，不会上传服务器；密码经哈希加密存储。</p>
+  <div id="ltabs"><button id="ltab-login" class="ltab on" type="button">登 录</button><button id="ltab-reg" class="ltab" type="button">注 册</button></div>
+  <div id="lpane-login">
+    <input id="lu" type="email" placeholder="邮箱" autocomplete="username">
+    <input id="lp" type="password" placeholder="密码" autocomplete="current-password">
+    <button id="lgo">登 录</button>
+    <div id="lerr"></div>
+  </div>
+  <div id="lpane-reg" style="display:none">
+    <input id="ru" type="email" placeholder="邮箱（用于登录）" autocomplete="email">
+    <input id="rp" type="password" placeholder="设置密码（至少 4 位）" autocomplete="new-password">
+    <input id="rp2" type="password" placeholder="再次输入密码" autocomplete="new-password">
+    <button id="rgo">注 册 并 登 录</button>
+    <div id="rerr"></div>
+  </div>
 </div></div>
 <div id="lightbox"><img id="lbimg" src=""><div class="cap" id="lbcap"></div></div>
+<div id="settings"><div id="setbox">
+  <h2>⚙ 设置</h2>
+  <div class="setrow"><label>正文字号 <span id="setFontV">15px</span></label>
+    <input id="setFont" type="range" min="13" max="24" step="1" value="15"></div>
+  <div class="setrow"><label>正文行距 <span id="setLhV">1.95</span></label>
+    <input id="setLh" type="range" min="1.5" max="2.6" step="0.05" value="1.95"></div>
+  <div class="setrow"><label>DeepSeek API Key（AI 总结用）</label>
+    <input id="setKey" type="password" placeholder="sk-…" autocomplete="off">
+    <div style="display:flex;gap:10px;align-items:center;margin-top:8px">
+      <button class="tbtn" id="setKeySave">💾 保存 Key</button>
+      <span id="setKeyMsg" style="font-size:12px;color:var(--fg2)"></span></div>
+    <div class="hint">在 platform.deepseek.com 创建 API Key 后粘贴到这里，Key 只保存在本机浏览器中，不会上传到任何服务器。保存后：打开章节点击「🤖 AI总结本章」可生成章节总结；左侧导航「🤖 AI 提问」可基于全站资料自由提问。</div>
+  </div>
+  <button class="setclose" id="setClose">完 成</button>
+</div></div>
+<div id="aipanel"><div id="aibox">
+  <h2 id="aiTitle">🤖 AI 总结</h2>
+  <div id="aistatus"></div>
+  <div id="aiout"></div>
+  <div id="aibtns"><button class="tbtn" id="aiStop">⏹ 停止</button><button class="tbtn" id="aiClose">关闭</button></div>
+</div></div>
 <script src="data/sl.js"></script>
 <script src="data/sh.js"></script>
 <script src="data/bl.js"></script>
@@ -146,7 +219,7 @@ figure.content-img figcaption b{color:var(--fg);font-size:13px}
 const SUBJ=[window.SUBJ_sl,window.SUBJ_sh,window.SUBJ_bl,window.SUBJ_nk,window.SUBJ_wk];
 const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 let searchIndex=null, current=null;
-let AUTH=localStorage.getItem('ttsx-login')==='1';
+let AUTH=localStorage.getItem('ttsx-login')==='1'&&!!localStorage.getItem('ttsx-user');
 const GRAPHS={};
 
 /* ---------- 内科/外科按系统分组 ---------- */
@@ -182,14 +255,18 @@ function chGroups(s){
   return out;
 }
 
-/* ---------- 笔记与编辑（localStorage 持久化） ---------- */
+/* ---------- 笔记与编辑（localStorage 持久化，按账号隔离） ---------- */
+let NOTE_USER=localStorage.getItem('ttsx-user')||'';
+function nkey(base){return base+(NOTE_USER?'@'+NOTE_USER:'');}
 function notesAll(){
   const out=[];
+  const suffix=NOTE_USER?'@'+NOTE_USER:'';
   for(let i=0;i<localStorage.length;i++){
     const k=localStorage.key(i);
-    if(k&&k.startsWith('ttsx-note-')){
-      try{const n=JSON.parse(localStorage.getItem(k));out.push({key:k.slice(10),t:n.t,ts:n.ts||0});}catch(e){}
-    }
+    if(!k||!k.startsWith('ttsx-note-'))continue;
+    const isMine=suffix?k.endsWith(suffix):(k.includes('@')===false);
+    if(!isMine)continue;
+    try{const n=JSON.parse(localStorage.getItem(k));out.push({key:k.slice(10,suffix?-suffix.length:undefined),t:n.t,ts:n.ts||0});}catch(e){}
   }
   out.sort((a,b)=>b.ts-a.ts);
   return out;
@@ -202,20 +279,117 @@ function noteMeta(key){
   }
   return null;
 }
-function getNoteObj(cid,idx){try{const r=localStorage.getItem('ttsx-note-'+cid+'|'+idx);return r==null?null:JSON.parse(r);}catch(e){return null}}
-function getEdit(cid,i){try{const r=localStorage.getItem('ttsx-edit-'+cid+'-'+i);return r==null?null:JSON.parse(r);}catch(e){return null}}
-function setUser(a){
-  AUTH=a;
-  if(a)localStorage.setItem('ttsx-login','1');else localStorage.removeItem('ttsx-login');
-  document.getElementById('userBtn').textContent=a?'👤 退出':'👤 登录';
+function getNoteObj(cid,idx){try{const r=localStorage.getItem(nkey('ttsx-note-'+cid+'|'+idx));return r==null?null:JSON.parse(r);}catch(e){return null}}
+function getEdit(cid,i){try{const r=localStorage.getItem(nkey('ttsx-edit-'+cid+'-'+i));return r==null?null:JSON.parse(r);}catch(e){return null}}
+
+/* ---------- 账号系统（注册/登录，数据仅存本机，密码 SHA-256 哈希） ---------- */
+function sha256(str){
+  function rr(v,a){return (v>>>a)|(v<<(32-a));}
+  const maxWord=Math.pow(2,32);
+  let result='';
+  const ascii=unescape(encodeURIComponent(str));
+  const asciiBitLength=ascii.length*8;
+  let words=[],hash=[],k=[],primeCounter=0;
+  const isComposite={};
+  for(let candidate=2;primeCounter<64;candidate++){
+    if(!isComposite[candidate]){
+      for(let i=0;i<313;i+=candidate)isComposite[i]=candidate;
+      hash[primeCounter]=(Math.pow(candidate,.5)*maxWord)|0;
+      k[primeCounter++]=(Math.pow(candidate,1/3)*maxWord)|0;
+    }
+  }
+  const a=ascii+'\x80';
+  let s=a;while(s.length%64-56)s+='\x00';
+  for(let i=0;i<s.length;i++)words[i>>2]|=s.charCodeAt(i)<<((3-i)%4)*8;
+  words[words.length]=(asciiBitLength/maxWord)|0;
+  words[words.length]=asciiBitLength;
+  hash=hash.slice(0,8);
+  for(let j=0;j<words.length;){
+    const w=words.slice(j,j+=16);
+    const oldHash=hash;
+    hash=hash.slice(0,8);
+    for(let i=0;i<64;i++){
+      const w15=w[i-15],w2=w[i-2];
+      const a0=hash[0],e=hash[4];
+      const temp1=hash[7]
+        +(rr(e,6)^rr(e,11)^rr(e,25))
+        +((e&hash[5])^((~e)&hash[6]))
+        +k[i]
+        +(w[i]=(i<16)?w[i]:(w[i-16]+(rr(w15,7)^rr(w15,18)^(w15>>>3))+w[i-7]+(rr(w2,17)^rr(w2,19)^(w2>>>10)))|0);
+      const temp2=(rr(a0,2)^rr(a0,13)^rr(a0,22))+((a0&hash[1])^(a0&hash[2])^(hash[1]&hash[2]));
+      hash=[(temp1+temp2)|0].concat(hash);
+      hash[4]=(hash[4]+temp1)|0;
+      hash.pop();
+    }
+    for(let i=0;i<8;i++)hash[i]=(hash[i]+oldHash[i])|0;
+  }
+  for(let i=0;i<8;i++)for(let j=3;j+1;j--){
+    const b=(hash[i]>>(j*8))&255;
+    result+=((b<16)?0:'')+b.toString(16);
+  }
+  return result;
+}
+function getAccounts(){try{const a=JSON.parse(localStorage.getItem('ttsx-accounts')||'[]');return Array.isArray(a)?a:[];}catch(e){return [];}}
+function saveAccounts(a){localStorage.setItem('ttsx-accounts',JSON.stringify(a));}
+function pwHash(pw,salt){return sha256('ttsx::'+salt+'::'+pw);}
+function validEmail(e){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);}
+function migrateNotes(email){
+  if(!email||localStorage.getItem('ttsx-migrated-'+email))return;
+  const keys=[];
+  for(let i=0;i<localStorage.length;i++){
+    const k=localStorage.key(i);
+    if(k&&(k.startsWith('ttsx-note-')||k.startsWith('ttsx-edit-'))&&!k.includes('@'))keys.push(k);
+  }
+  keys.forEach(k=>{const v=localStorage.getItem(k);if(v!=null)localStorage.setItem(k+'@'+email,v);});
+  localStorage.setItem('ttsx-migrated-'+email,'1');
+}
+function setUser(a,email){
+  AUTH=!!a;
+  NOTE_USER=a?(email||localStorage.getItem('ttsx-user')||''):'';
+  if(a){localStorage.setItem('ttsx-login','1');if(NOTE_USER)localStorage.setItem('ttsx-user',NOTE_USER);migrateNotes(NOTE_USER);}
+  else{localStorage.removeItem('ttsx-login');localStorage.removeItem('ttsx-user');}
+  document.getElementById('userBtn').textContent=a?'👤 '+(NOTE_USER||'已登录'):'👤 登录';
   document.getElementById('login').style.display=a?'none':'flex';
   buildSidebar();
   if(current)openChapter(current.si,current.cid);else showIntro();
 }
+function showLoginTab(){
+  document.getElementById('ltab-login').classList.add('on');
+  document.getElementById('ltab-reg').classList.remove('on');
+  document.getElementById('lpane-login').style.display='';
+  document.getElementById('lpane-reg').style.display='none';
+  document.getElementById('lerr').textContent='';
+}
+function showRegTab(){
+  document.getElementById('ltab-reg').classList.add('on');
+  document.getElementById('ltab-login').classList.remove('on');
+  document.getElementById('lpane-reg').style.display='';
+  document.getElementById('lpane-login').style.display='none';
+  document.getElementById('rerr').textContent='';
+}
 function tryLogin(){
-  const u=document.getElementById('lu').value.trim(),p=document.getElementById('lp').value.trim();
-  if(u==='1'&&p==='1'){document.getElementById('lerr').textContent='';setUser(true);}
-  else document.getElementById('lerr').textContent='账号或密码错误（提示：都是 1）';
+  const u=document.getElementById('lu').value.trim().toLowerCase();
+  const p=document.getElementById('lp').value;
+  const err=document.getElementById('lerr');
+  if(!u||!p){err.textContent='请输入邮箱和密码';return;}
+  const acc=getAccounts().find(a=>a.email===u);
+  if(!acc){err.textContent='该邮箱尚未注册，请先点击「注册」创建账号';return;}
+  if(acc.hash!==pwHash(p,acc.salt)){err.textContent='密码错误，请重试';return;}
+  err.textContent='';setUser(true,u);
+}
+function tryRegister(){
+  const u=document.getElementById('ru').value.trim().toLowerCase();
+  const p=document.getElementById('rp').value,p2=document.getElementById('rp2').value;
+  const err=document.getElementById('rerr');
+  if(!validEmail(u)){err.textContent='请输入正确的邮箱地址（如 name@example.com）';return;}
+  if(p.length<4){err.textContent='密码至少需要 4 位';return;}
+  if(p!==p2){err.textContent='两次输入的密码不一致';return;}
+  const accs=getAccounts();
+  if(accs.some(a=>a.email===u)){err.textContent='该邮箱已注册，请直接登录';return;}
+  const salt=Math.random().toString(36).slice(2)+Date.now().toString(36);
+  accs.push({email:u,salt,hash:pwHash(p,salt),created:Date.now()});
+  saveAccounts(accs);
+  err.textContent='';setUser(true,u);
 }
 function rerenderCurrent(focusIdx){
   if(!current)return;
@@ -241,8 +415,18 @@ function kwRender(text,q){ // highlight query hits in snippets (plain text in)
 }
 
 /* ---------- sidebar ---------- */
+function toggleSide(){
+  const n=document.body.classList.toggle('noside');
+  localStorage.setItem('ttsx-side',n?'0':'1');
+}
+function sysCollapsed(){try{return JSON.parse(localStorage.getItem('ttsx-sys')||'{}');}catch(e){return {};}}
 function buildSidebar(){
   const sb=document.getElementById('sidebar');sb.innerHTML='';
+  const aiItem=document.createElement('div');aiItem.className='chitem aichatitem';aiItem.id='nav-aichat';
+  aiItem.innerHTML=`🤖 AI 提问<span class="badge">全站知识库</span>`;
+  aiItem.title='基于全站笔记资料向 AI 提问';
+  aiItem.onclick=openAIChat;
+  sb.appendChild(aiItem);
   SUBJ.forEach((s,si)=>{
     const d=document.createElement('div');d.className='subj';d.id='subj'+si;
     const mmGeneral=(s.mind.general||[]).length;
@@ -250,16 +434,32 @@ function buildSidebar(){
     head.innerHTML=`<span class="dot" style="background:${s.color}"></span>${esc(s.name)}<span class="badge" style="font-size:11px;color:var(--fg2);margin-left:6px">${s.chapters.length}章</span><span class="caret">▶</span>`;
     head.onclick=()=>d.classList.toggle('open');
     const list=document.createElement('div');list.className='chlist';
+    const collapsed=sysCollapsed();
     chGroups(s).forEach(g=>{
-      if(g.name){const gh=document.createElement('div');gh.className='syshead';gh.textContent=g.name;list.appendChild(gh);}
+      let wrap=null,gh=null;
+      if(g.name){
+        gh=document.createElement('div');gh.className='syshead';
+        const key=s.id+'|'+g.name;
+        gh.innerHTML=`<span class="scaret">▼</span>${esc(g.name)}`;
+        wrap=document.createElement('div');wrap.className='syswrap'+(collapsed[key]?' closed':'');
+        if(collapsed[key])gh.querySelector('.scaret').style.transform='rotate(-90deg)';
+        gh.onclick=()=>{
+          wrap.classList.toggle('closed');
+          gh.querySelector('.scaret').style.transform=wrap.classList.contains('closed')?'rotate(-90deg)':'';
+          const st=sysCollapsed();st[key]=wrap.classList.contains('closed');
+          localStorage.setItem('ttsx-sys',JSON.stringify(st));
+        };
+        list.appendChild(gh);
+      }
       g.chs.forEach(ch=>{
         const it=document.createElement('div');it.className='chitem';it.id='nav-'+ch.id;
         const nimg=ch.blocks.filter(b=>b.k==='img').length;
         const nmm=(s.mind.byCh[ch.id]||[]).length;
         it.innerHTML=`<span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(ch.title)}</span><span class="badge">${nmm?'📖':''}${nimg?'🖼'+nimg:''}</span>`;
         it.onclick=()=>openChapter(si,ch.id);
-        list.appendChild(it);
+        (wrap||list).appendChild(it);
       });
+      if(wrap)list.appendChild(wrap);
     });
     if(mmGeneral>0){
       const it=document.createElement('div');it.className='chitem mmchitem';it.id='nav-'+s.id+'-mmg';
@@ -420,6 +620,7 @@ function openChapter(si,cid,jumpIdx){
   let html=`<h2 class="chtitle">${esc(ch.title)}</h2>
     <div class="chsrc">来源：${esc(ch.src_file)}</div>
     <span class="chsubject" style="background:${s.color}">${esc(s.name)}</span>
+    <button class="tbtn" style="margin:0 0 18px 10px;vertical-align:middle" onclick="aiSummary()" title="用 DeepSeek 生成本章复习总结">🤖 AI总结本章</button>
     <div class="content">`;
   blocks.forEach((b,i)=>{html+=blockHTML(b,i,cid);});
   html+='</div>';
@@ -454,12 +655,12 @@ function toggleNoteEditor(btn,key){
   box.querySelector('textarea').focus();
   box.querySelector('.nb-save').onclick=()=>{
     const t=box.querySelector('textarea').value.trim();
-    if(t)localStorage.setItem('ttsx-note-'+key,JSON.stringify({t,ts:Date.now()}));
-    else localStorage.removeItem('ttsx-note-'+key);
+    if(t)localStorage.setItem(nkey('ttsx-note-'+key),JSON.stringify({t,ts:Date.now()}));
+    else localStorage.removeItem(nkey('ttsx-note-'+key));
     rerenderCurrent(+idx);buildNoteNav();
   };
   box.querySelector('.nb-del').onclick=()=>{
-    localStorage.removeItem('ttsx-note-'+key);
+    localStorage.removeItem(nkey('ttsx-note-'+key));
     rerenderCurrent(+idx);buildNoteNav();
   };
   box.querySelector('.nb-close').onclick=()=>box.remove();
@@ -469,7 +670,7 @@ function onEditBlur(el){
   const idx=+el.id.slice(1);
   const txt=el.innerText.replace(/\s+$/,'').trim();
   const b=SUBJ[current.si].chapters.find(c=>c.id===current.cid).blocks[idx];
-  const key='ttsx-edit-'+current.cid+'-'+idx;
+  const key=nkey('ttsx-edit-'+current.cid+'-'+idx);
   if(txt===String(b.v||'').trim())localStorage.removeItem(key);
   else localStorage.setItem(key,JSON.stringify(txt));
   el.contentEditable='false';
@@ -594,25 +795,324 @@ function toggleTheme(){
   b.dataset.theme=b.dataset.theme==='light'?'':'light';
   localStorage.setItem('ttsx-theme',b.dataset.theme);
 }
+/* ---------- 设置栏 ---------- */
+function openSettings(){document.getElementById('settings').style.display='flex';}
+function closeSettings(){document.getElementById('settings').style.display='none';}
+function applyFont(){
+  const fs=document.getElementById('setFont').value,lh=document.getElementById('setLh').value;
+  document.documentElement.style.setProperty('--cfs',fs+'px');
+  document.documentElement.style.setProperty('--clh',lh);
+  document.getElementById('setFontV').textContent=fs+'px';
+  document.getElementById('setLhV').textContent=parseFloat(lh).toFixed(2).replace(/0$/,'');
+  localStorage.setItem('ttsx-cfs',fs);localStorage.setItem('ttsx-clh',lh);
+}
+function saveKey(){
+  const k=document.getElementById('setKey').value.trim();
+  if(k)localStorage.setItem('ttsx-dskey',k);else localStorage.removeItem('ttsx-dskey');
+  document.getElementById('setKeyMsg').textContent=k?'已保存 ✓（仅存本机浏览器）':'已清除';
+}
+function initSettings(){
+  const cfs=localStorage.getItem('ttsx-cfs')||'15',clh=localStorage.getItem('ttsx-clh')||'1.95';
+  document.documentElement.style.setProperty('--cfs',cfs+'px');
+  document.documentElement.style.setProperty('--clh',clh);
+  document.getElementById('setFont').value=cfs;
+  document.getElementById('setLh').value=clh;
+  document.getElementById('setFontV').textContent=cfs+'px';
+  document.getElementById('setLhV').textContent=clh;
+  document.getElementById('setKey').value=localStorage.getItem('ttsx-dskey')||'';
+}
+/* ---------- AI 总结（DeepSeek） ---------- */
+let aiAbort=null;
+function chapterText(){
+  const s=SUBJ[current.si];
+  const ch=s.chapters.find(c=>c.id===current.cid);
+  let t='章节：'+ch.title+'（'+s.name+'）\n正文：\n';
+  ch.blocks.forEach(b=>{
+    if(b.k==='table')t+='\n'+b.v.map(r=>r.join(' | ')).join('\n')+'\n';
+    else if(b.k==='img')t+='[插图:'+(b.v.name||'')+'] ';
+    else if(typeof b.v==='string')t+=b.v+'\n';
+  });
+  return t.slice(0,10000);
+}
+async function aiFetchOnce(body,ctrl){
+  const r=await fetch('https://api.deepseek.com/chat/completions',{method:'POST',signal:ctrl.signal,
+    headers:{'Content-Type':'application/json','Authorization':'Bearer '+localStorage.getItem('ttsx-dskey')},body});
+  if(!r.ok){const j=await r.json().catch(()=>({}));throw new Error((j.error&&j.error.message)||('HTTP '+r.status));}
+  return r;
+}
+async function aiFetchRetry(body,ctrl){
+  let lastErr=null;
+  for(let a=0;a<3;a++){
+    try{return await aiFetchOnce(body,ctrl);}
+    catch(e){
+      if(e.name==='AbortError'||ctrl.signal.aborted)throw e;
+      if(!/Failed to fetch|network|ERR/i.test(e.message))throw e;
+      lastErr=e;
+      await new Promise(res=>setTimeout(res,600*(a+1)));
+    }
+  }
+  throw lastErr||new Error('网络请求失败');
+}
+function aiSummary(){
+  if(!current)return;
+  const key=localStorage.getItem('ttsx-dskey');
+  if(!key){openSettings();document.getElementById('setKeyMsg').textContent='⚠ 请先填入 DeepSeek API Key';return;}
+  const s=SUBJ[current.si];
+  const ch=s.chapters.find(c=>c.id===current.cid);
+  document.getElementById('aiTitle').textContent='🤖 AI 总结 · '+ch.title;
+  document.getElementById('aiout').textContent='';
+  document.getElementById('aistatus').textContent='正在请求 DeepSeek…（流式输出，网络波动会自动重试）';
+  document.getElementById('aipanel').style.display='flex';
+  const body=JSON.stringify({model:'deepseek-chat',stream:true,temperature:0.3,max_tokens:4096,
+    messages:[
+      {role:'system',content:'你是西医综合考研辅导老师。请根据学生提供的章节笔记，输出一份精炼的复习总结：1）本章核心考点（要点式，按重要性排序）；2）重点机制/鉴别对比（如有）；3）易错点提醒；4）原文中的口诀如有则保留并标注。使用 markdown 样式标题与列表，语言精炼，适合冲刺复习。'},
+      {role:'user',content:chapterText()}]});
+  const ctrl=new AbortController();aiAbort=ctrl;
+  aiFetchRetry(body,ctrl)
+  .then(r=>{
+    if(!r.ok)return r.json().catch(()=>({})).then(j=>{throw new Error((j.error&&j.error.message)||('HTTP '+r.status));});
+    return r;
+  })
+  .then(async r=>{
+    const rd=r.body.getReader(),dec=new TextDecoder();
+    let buf='';
+    const out=document.getElementById('aiout');
+    while(true){
+      const {done,value}=await rd.read();
+      if(done)break;
+      buf+=dec.decode(value,{stream:true});
+      const lines=buf.split('\n');buf=lines.pop();
+      for(const ln of lines){
+        const m=ln.match(/^data:\s*(.+)$/);
+        if(!m||m[1].trim()==='[DONE]')continue;
+        try{
+          const j=JSON.parse(m[1]);
+          const d=j.choices&&j.choices[0]&&j.choices[0].delta&&j.choices[0].delta.content;
+          if(d){out.textContent+=d;out.scrollTop=out.scrollHeight;}
+        }catch(e){}
+      }
+    }
+    document.getElementById('aistatus').textContent='完成 ✓（生成内容仅供参考，请以原文为准）';
+  }).catch(e=>{
+    if(e.name==='AbortError')document.getElementById('aistatus').textContent='已停止';
+    else document.getElementById('aistatus').textContent='出错了：'+e.message+'（请检查 API Key 与网络）';
+  }).finally(()=>{aiAbort=null;});
+}
+function aiStop(){if(aiAbort)aiAbort.abort();}
+function aiClose(){aiStop();document.getElementById('aipanel').style.display='none';}
+
+/* ---------- AI 提问（全站知识库检索问答） ---------- */
+let aiChatLog=null,chatBusy=false,chTextCache=null;
+function chatLog(){
+  if(aiChatLog===null){
+    try{aiChatLog=JSON.parse(localStorage.getItem('ttsx-aichat')||'[]');}catch(e){aiChatLog=[];}
+    if(!Array.isArray(aiChatLog))aiChatLog=[];
+  }
+  return aiChatLog;
+}
+function chatSave(){try{localStorage.setItem('ttsx-aichat',JSON.stringify(chatLog().slice(-40)));}catch(e){}}
+function chTextsAll(){
+  if(chTextCache)return chTextCache;
+  chTextCache=[];
+  SUBJ.forEach(s=>{
+    s.chapters.forEach(ch=>{
+      let t=ch.title+'\n';
+      ch.blocks.forEach(b=>{
+        if(b.k==='table')t+='\n'+b.v.map(r=>r.join(' | ')).join('\n')+'\n';
+        else if(b.k==='img')t+=' [插图:'+(b.v.name||'')+(b.v.cap||'')+'] ';
+        else if(typeof b.v==='string')t+=b.v+'\n';
+      });
+      (s.mind.byCh[ch.id]||[]).forEach(m=>{t+='[思维导图·'+(m.title||'')+'] '+m.t.replace(/\s+/g,' ').slice(0,600)+'\n';});
+      chTextCache.push({sid:s.id,sname:s.name,cid:ch.id,title:ch.title,t:t.slice(0,22000)});
+    });
+  });
+  return chTextCache;
+}
+function tokenizeQ(q){
+  const stop=new Set(['什么','怎么','如何','请问','一下','关于','哪些','为什么','简述','说说','讲讲','介绍','帮忙','帮我','是不是','有没有','如何理解','的','了','吗','呢','和','与','及','或','在','是','有','我','你','他','请','么','吧','啊','这','那','以及','还有','区别']);
+  const ws=q.toLowerCase().split(/[\s，。！？、；：“”‘’（）(),.!?;:'"<>【】\[\]]+/).filter(w=>w.length>=2&&!stop.has(w));
+  const out=new Set(ws);
+  ws.forEach(w=>{
+    if(/^[\u4e00-\u9fa5]{3,}$/.test(w)){
+      for(let i=0;i<=w.length-2;i++)out.add(w.slice(i,i+2));
+    }
+  });
+  return [...out];
+}
+function retrieve(question){
+  const words=tokenizeQ(question);
+  if(!words.length)return [];
+  const chs=chTextsAll();
+  const scored=chs.map(c=>{
+    const lt=c.t.toLowerCase(),lti=c.title.toLowerCase();
+    let sc=0;
+    words.forEach(w=>{
+      const n=lt.split(w).length-1;
+      if(n)sc+=Math.min(n,8)*(w.length>=3?2:1);
+      if(lti.includes(w))sc+=6;
+    });
+    return {c,sc};
+  }).filter(x=>x.sc>0).sort((a,b)=>b.sc-a.sc).slice(0,4);
+  const budget=9000;let used=0;const parts=[];
+  for(const {c} of scored){
+    const paras=c.t.split('\n').map(p=>p.trim()).filter(p=>p.length>=6);
+    const hit=paras.filter(p=>words.some(w=>p.toLowerCase().includes(w)));
+    const chosen=(hit.length?hit:paras.slice(0,6)).slice(0,16);
+    let text='【'+c.sname+'·'+c.title+'】\n'+chosen.join('\n');
+    if(used+text.length>budget)text=text.slice(0,Math.max(0,budget-used));
+    if(text.length<40)continue;
+    parts.push({ref:c,text});
+    used+=text.length;
+    if(used>=budget)break;
+  }
+  return parts;
+}
+function mdLite(t){
+  let s=esc(t);
+  s=s.replace(/^#{1,5}\s*(.+)$/gm,'<b>$1</b>');
+  s=s.replace(/\*\*([^*\n]+)\*\*/g,'<b>$1</b>');
+  s=s.replace(/^\s*[-*]\s+/gm,'• ');
+  return s;
+}
+function openAIChat(){
+  setActiveNav('aichat');
+  current=null;
+  const nCh=SUBJ.reduce((a,s)=>a+s.chapters.length,0);
+  document.getElementById('main-inner').innerHTML=`<h2 class="chtitle">🤖 AI 提问</h2>
+   <div class="chsrc">AI 知识库 = 全站资料（5 科 · ${nCh} 章笔记 + 思维导图）。提问后自动检索最相关章节交给 DeepSeek 作答，并标注来源章节。需在 ⚙ 设置 中填入 DeepSeek API Key。</div>
+   <div id="chatlog"></div>
+   <div id="chatbar"><textarea id="chatin" placeholder="输入问题…（Enter 发送，Shift+Enter 换行）"></textarea><button id="chatsend">发 送</button></div>`;
+  renderChatLog();
+  history.replaceState(null,'','#aichat');
+  setTimeout(()=>{const el=document.getElementById('chatin');if(el)el.focus();},60);
+}
+function chatMsgHTML(m,mi){
+  if(m.role==='user')return `<div class="chatmsg user">${mdLite(m.content)}</div>`;
+  const refs=(m.refs||[]).map((r,ri)=>`<span class="chatref" onclick="refGo(${ri},${mi})" title="打开章节">📄 ${esc(r.sname)}·${esc(r.title)}</span>`).join('');
+  const body=m.content?mdLite(m.content):'<span id="chatstream" style="color:var(--fg2)">正在检索全站资料…</span>';
+  return `<div class="chatmsg ai"><div class="chatbody">${body}</div>${refs?`<div class="chatrefs">${refs}</div>`:''}</div>`;
+}
+function renderChatLog(){
+  const el=document.getElementById('chatlog');if(!el)return;
+  el.innerHTML=chatLog().map((m,mi)=>chatMsgHTML(m,mi)).join('')
+    ||`<div class="chatempty">还没有提问。试试：「甲亢的治疗方案有哪些？」「消化性溃疡的发病机制」「急性胰腺炎如何鉴别诊断」「糖酵解的关键酶」。<br>回答基于站内笔记资料检索生成，仅供复习参考。</div>`;
+  const main=document.getElementById('main');main.scrollTop=main.scrollHeight;
+}
+function refGo(ri,mi){
+  const m=chatLog()[mi];if(!m)return;
+  const r=(m.refs||[])[ri];if(!r)return;
+  const si=SUBJ.findIndex(s=>s.id===r.sid);
+  if(si>=0)openChapter(si,r.cid);
+}
+async function chatSend(){
+  if(chatBusy)return;
+  const inp=document.getElementById('chatin');if(!inp)return;
+  const q=inp.value.trim();if(!q)return;
+  const key=localStorage.getItem('ttsx-dskey');
+  if(!key){openSettings();document.getElementById('setKeyMsg').textContent='⚠ AI 提问需要先填入 DeepSeek API Key';return;}
+  chatBusy=true;
+  const send=document.getElementById('chatsend');if(send)send.disabled=true;
+  const log=chatLog();
+  log.push({role:'user',content:q});
+  log.push({role:'assistant',content:'',refs:[]});
+  renderChatLog();
+  inp.value='';
+  try{
+    const parts=retrieve(q);
+    const aiMsg=log[log.length-1];
+    aiMsg.refs=parts.map(p=>({sid:p.ref.sid,sname:p.ref.sname,title:p.ref.title,cid:p.ref.cid}));
+    if(!parts.length){
+      aiMsg.content='未能在站内资料中检索到与该问题明显相关的内容。请换个说法（多用医学关键词）再试，或直接打开对应章节使用「🤖 AI总结本章」。';
+      renderChatLog();chatSave();return;
+    }
+    const streamEl=()=>document.getElementById('chatstream');
+    const se=streamEl();
+    if(se)se.textContent=`已检索到 ${parts.length} 个相关章节：${parts.map(p=>p.ref.sname+'·'+p.ref.title).join('、')}。正在生成回答…`;
+    const ctx=parts.map(p=>p.text).join('\n\n————\n\n');
+    const hist=log.slice(0,-2).filter(m=>m.content).slice(-6)
+      .map(m=>({role:m.role,content:m.content.slice(0,800)}));
+    const body=JSON.stringify({model:'deepseek-chat',stream:true,temperature:0.4,max_tokens:4096,
+      messages:[
+        {role:'system',content:'你是西医综合考研辅导AI助手。请主要依据【参考资料】回答学生的问题：1）回答准确、条理清晰，适当使用加粗标题与列表；2）回答末尾单独一行列出「来源：科目·章节」；3）参考资料不足以回答时，可补充医学知识，但需标注「（资料外补充）」。参考资料来自学生自己的考研笔记库。'},
+        ...hist,
+        {role:'user',content:'【参考资料】\n'+ctx+'\n\n【问题】'+q}]});
+    const r=await aiFetchRetry(body,new AbortController());
+    const rd=r.body.getReader(),dec=new TextDecoder();
+    let buf='',out='';
+    while(true){
+      const {done,value}=await rd.read();
+      if(done)break;
+      buf+=dec.decode(value,{stream:true});
+      const lines=buf.split('\n');buf=lines.pop();
+      for(const ln of lines){
+        const m=ln.match(/^data:\s*(.+)$/);
+        if(!m||m[1].trim()==='[DONE]')continue;
+        try{
+          const j=JSON.parse(m[1]);
+          const d=j.choices&&j.choices[0]&&j.choices[0].delta&&j.choices[0].delta.content;
+          if(d){
+            out+=d;
+            const e=streamEl();
+            if(e){e.innerHTML=mdLite(out);const main=document.getElementById('main');main.scrollTop=main.scrollHeight;}
+          }
+        }catch(e){}
+      }
+    }
+    aiMsg.content=out||'（模型未返回内容，请重试）';
+    renderChatLog();chatSave();
+  }catch(e){
+    const aiMsg=chatLog()[chatLog().length-1];
+    if(aiMsg&&aiMsg.role==='assistant'&&!aiMsg.content)aiMsg.content='⚠ 出错了：'+e.message+'（请检查 API Key 与网络）';
+    renderChatLog();
+  }finally{
+    chatBusy=false;
+    const s2=document.getElementById('chatsend');if(s2)s2.disabled=false;
+  }
+}
 document.addEventListener('DOMContentLoaded',()=>{
   const th=localStorage.getItem('ttsx-theme');
   if(th)document.body.dataset.theme=th;
   buildSidebar();showIntro();
-  document.getElementById('userBtn').textContent=AUTH?'👤 退出':'👤 登录';
+  if(localStorage.getItem('ttsx-side')==='0')document.body.classList.add('noside');
+  initSettings();
+  document.getElementById('userBtn').textContent=AUTH?'👤 '+(NOTE_USER||'已登录'):'👤 登录';
   document.getElementById('search').addEventListener('input',doSearch);
   document.getElementById('themeBtn').onclick=toggleTheme;
+  document.getElementById('sideBtn').onclick=toggleSide;
+  document.getElementById('setBtn').onclick=openSettings;
+  document.getElementById('setClose').onclick=closeSettings;
+  document.getElementById('settings').addEventListener('click',e=>{if(e.target.id==='settings')closeSettings();});
+  document.getElementById('setFont').addEventListener('input',applyFont);
+  document.getElementById('setLh').addEventListener('input',applyFont);
+  document.getElementById('setKeySave').onclick=saveKey;
+  document.getElementById('aiStop').onclick=aiStop;
+  document.getElementById('aiClose').onclick=aiClose;
+  document.getElementById('aipanel').addEventListener('click',e=>{if(e.target.id==='aipanel')aiClose();});
+  // AI 提问（视图动态渲染，用事件委托）
+  document.addEventListener('click',e=>{if(e.target&&e.target.id==='chatsend')chatSend();});
+  document.addEventListener('keydown',e=>{if(e.target&&e.target.id==='chatin'&&e.key==='Enter'&&!e.shiftKey){e.preventDefault();chatSend();}});
   document.getElementById('lightbox').onclick=()=>{document.getElementById('lightbox').style.display='none';};
   document.getElementById('userBtn').onclick=()=>{
     if(AUTH)setUser(false);
-    else{document.getElementById('lu').value='';document.getElementById('lp').value='';document.getElementById('lerr').textContent='';document.getElementById('login').style.display='flex';}
+    else{
+      showLoginTab();
+      document.getElementById('lu').value=localStorage.getItem('ttsx-user')||'';
+      document.getElementById('lp').value='';
+      document.getElementById('lerr').textContent='';
+      document.getElementById('login').style.display='flex';
+      document.getElementById('lu').focus();
+    }
   };
   document.getElementById('lgo').onclick=tryLogin;
-  document.getElementById('lp').addEventListener('keydown',e=>{if(e.key==='Enter')tryLogin();});
-  document.getElementById('lu').addEventListener('keydown',e=>{if(e.key==='Enter')tryLogin();});
+  document.getElementById('rgo').onclick=tryRegister;
+  document.getElementById('ltab-login').onclick=showLoginTab;
+  document.getElementById('ltab-reg').onclick=showRegTab;
+  [['lp',tryLogin],['lu',tryLogin],['rp2',tryRegister],['rp',tryRegister],['ru',tryRegister]]
+    .forEach(([id,fn])=>document.getElementById(id).addEventListener('keydown',e=>{if(e.key==='Enter')fn();}));
   let h=location.hash.slice(1);
   const auto=h.startsWith('autologin/');
   if(auto)h=h.slice(10);
-  if(!AUTH&&auto)setUser(true);
+  if(!AUTH&&auto)setUser(true,'local');
   if(!AUTH)document.getElementById('login').style.display='flex';
   // 双击编辑文字块（登录后）
   const mainEl=document.getElementById('main');
@@ -627,6 +1127,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     if(AUTH&&el.classList&&el.classList.contains('blk')&&el.hasAttribute('data-edit')&&el.contentEditable==='true')onEditBlur(el);
   },true);
   if(h){
+    if(h==='aichat'){openAIChat();return;}
     for(let si=0;si<SUBJ.length;si++){
       const s=SUBJ[si];
       if(h===s.id+'-mmg'){openMMGeneral(si);return;}
